@@ -1,8 +1,27 @@
-import React from 'react'
+import { Button, Center, Heading, Text } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <Center>
+        <Heading mt='36'>
+          Welcome to Top G
+        </Heading>
+      </Center>
+      <Center>
+        <Text>
+          Let's checkout what we got here
+        </Text>
+      </Center>
+      <Center>
+        <Link to='/gym-list'>
+          <Button colorScheme='whatsapp' mt='4'>
+            Get List of Gym
+          </Button>
+        </Link>
+      </Center>
+    </div>
   )
 }
 
