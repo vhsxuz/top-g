@@ -12,7 +12,7 @@ function Navbar() {
       <ButtonGroup gap='2'>
         <Link to='/register'>
           <Button colorScheme='teal' size='sm'>
-            Sign Up
+            Register
           </Button>
         </Link>
         <Link to="/login">
