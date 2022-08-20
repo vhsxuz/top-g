@@ -1,33 +1,50 @@
-import { FormControl, FormLabel, Input, FormHelperText, FormErrorMessage, Stack, Heading, Center } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, FormHelperText, FormErrorMessage, Stack, Heading, Center, Button } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Register() {
-  const [email, setEmail] = useState('')
-  const handleEmailChange = (e: any) => setEmail(e.target.value)
-  const isErrorEmail = email === ''
+  const [username, setUsername] = useState('')
+  const handleUsernameChange = (e: any) => setUsername(e.target.value)
+  const isErrorUsername = username === ''
 
   const [password, setPassword] = useState('')
-  const handlePasswordChange = (e: any) => setEmail(e.target.value)
+  const handlePasswordChange = (e: any) => setPassword(e.target.value)
   const isErrorPassword = password === ''
+
+  const navigate = useNavigate()
+
+  const register = async (e: any) => {
+    e.preventDefault()
+    await axios.post("http://localhost:8000/api/v1/auth/register", {
+      username: username,
+      password: password,
+    }).then((response) => {
+      console.log(response)
+      navigate("/login")
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
 
   return (
     <Stack p='32'>
       <Center>
         <Heading pb='8'> Register </Heading>
       </Center>
-      <FormControl isInvalid={isErrorEmail} mb='8'>
-        <FormLabel>Email</FormLabel>
+      <FormControl isInvalid={isErrorUsername} mb='8'>
+        <FormLabel>Username</FormLabel>
         <Input
-          type='email'
-          value={email}
-          onChange={handleEmailChange}
+          type='username'
+          value={username}
+          onChange={handleUsernameChange}
         />
-        {!isErrorEmail ? (
+        {!isErrorUsername ? (
           <FormHelperText>
-            Enter the email you'd like to receive the newsletter on.
+            Enter the unique username
           </FormHelperText>
         ) : (
-          <FormErrorMessage>Email is required.</FormErrorMessage>
+          <FormErrorMessage>Username is required.</FormErrorMessage>
         )}
       </FormControl>
       <FormControl isInvalid={isErrorPassword}>
@@ -45,6 +62,11 @@ function Register() {
           <FormErrorMessage>Password is required.</FormErrorMessage>
         )}
       </FormControl>
+      <Link to='/login'>
+        <Button colorScheme='teal' mt='4' onClick={register}>
+          Register
+        </Button>
+      </Link>
     </Stack>
   )
 }

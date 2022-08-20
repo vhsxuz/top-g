@@ -1,33 +1,53 @@
-import { Center, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, Stack } from '@chakra-ui/react';
+import { Button, Center, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, Stack } from '@chakra-ui/react';
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 function Login() {
-  const [email, setEmail] = useState('')
-  const handleEmailChange = (e: any) => setEmail(e.target.value)
-  const isErrorEmail = email === ''
+  const [username, setUsername] = useState('')
+  const handleUsernameChange = (e: any) => setUsername(e.target.value)
+  const isErrorUsername = username === ''
 
   const [password, setPassword] = useState('')
-  const handlePasswordChange = (e: any) => setEmail(e.target.value)
+  const handlePasswordChange = (e: any) => setPassword(e.target.value)
   const isErrorPassword = password === ''
+
+  const [loginStatus, setLoginStatus] = useState(false)
+  const navigate = useNavigate()
+
+  const login = async (e: any) => {
+    e.preventDefault()
+    await axios.post('http://localhost:8000/api/v1/auth/login', {
+      username: username,
+      password: password,
+    }).then((response) => {
+      setLoginStatus(true);
+      const cookie = 'Bearer ' + response.data.token
+      document.cookie = `token=${cookie}`
+      navigate("/");
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
 
   return (
     <Stack p='32'>
       <Center>
         <Heading pb='8'> Login </Heading>
       </Center>
-      <FormControl isInvalid={isErrorEmail} mb='8'>
-        <FormLabel>Email</FormLabel>
+      <FormControl isInvalid={isErrorUsername} mb='8'>
+        <FormLabel>Username</FormLabel>
         <Input
-          type='email'
-          value={email}
-          onChange={handleEmailChange}
+          type='username'
+          value={username}
+          onChange={handleUsernameChange}
         />
-        {!isErrorEmail ? (
+        {!isErrorUsername ? (
           <FormHelperText>
-            Enter the email you'd like to receive the newsletter on.
+            Enter the unique username
           </FormHelperText>
         ) : (
-          <FormErrorMessage>Email is required.</FormErrorMessage>
+          <FormErrorMessage>Username is required.</FormErrorMessage>
         )}
       </FormControl>
       <FormControl isInvalid={isErrorPassword}>
@@ -45,6 +65,11 @@ function Login() {
           <FormErrorMessage>Password is required.</FormErrorMessage>
         )}
       </FormControl>
+      <Link to={loginStatus === true ? "/" : "/login"}>
+        <Button colorScheme='teal' mt="4" onClick={login}>
+          Login
+        </Button>
+      </Link>
     </Stack>
   )
 }
