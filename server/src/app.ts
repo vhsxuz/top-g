@@ -25,13 +25,14 @@ app.use(morgan("dev"));
 
 // Routes
 import authRouter from './routes/auth.route';
-
-import gymRouter from './routes/gym.route'
+import threadRouter from './routes/thread.route';
+import gymRouter from './routes/gym.route';
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/gym', authMiddleware, gymRouter);
+app.use('/api/v1/thread', authMiddleware, threadRouter);
 
 app.get('/api/v1/ping', (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).json({success: true});
+  res.status(200).json({ success: true });
 });
 
 app.use(notFoundMiddleware);
