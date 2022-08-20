@@ -14,6 +14,7 @@ const port = process.env.PORT || 8000;
 // Middleware
 import notFoundMiddleware from './middlewares/not-found.middleware';
 import errorHandlerMiddleware from './middlewares/error-handler.middleware';
+import authMiddleware from './middlewares/auth.middleware';
 
 // External Middleware
 app.use(cors());
@@ -23,7 +24,9 @@ app.use(morgan("dev"));
 
 // Routes
 import authRouter from './routes/auth.route';
+import gymRouter from './routes/gym.route'
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/gym', authMiddleware, gymRouter);
 
 app.get('/api/v1/ping', (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json({success: true});
