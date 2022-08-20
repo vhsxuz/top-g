@@ -22,4 +22,17 @@ export const generateToken = async (id: string, passwordHash: string) => {
 
   const token = sign(payload, secretKey, opt);
   return token;
+
+}
+
+export const validateToken = async (token: string): Promise<any> => {
+  const secretKey: string | undefined = process.env.JWT_SECRET;
+
+  if (!secretKey) {
+    throw new CustomError('JWT key not Provided');
+  }
+
+  const decoded = verify(token, secretKey);
+  return decoded;
+
 }

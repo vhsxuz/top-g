@@ -17,9 +17,10 @@ model User {
 }
 
 model Gym {
-  id  String @id @default(auto()) @map("_id") @db.ObjectId
-  name String @unique
-  address String
-  currentCapacity Int @default(0)
-  maxCapacity Int
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  name            String @unique
+  imageLink       String
+  address         String
+  currentCapacity Int    @default(0)
+  maxCapacity     Int
 }
