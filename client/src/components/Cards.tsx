@@ -6,13 +6,13 @@ function Cards() {
   const property = {
     imageUrl: 'https://bit.ly/2Z4KKcF',
     imageAlt: 'Rear view of modern home with pool',
-    title: 'Alia Gym',
-    formattedPrice: '$150',
-    reviewCount: 34,
+    title: 'Top G West Jakarta',
+    currentCapacity: '150',
+    maxCapacity: 34,
     rating: 4,
   }
   return (
-    <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' w='20%'>
+    <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
       <Image src={property.imageUrl} alt={property.imageAlt} />
 
       <Box p='6'>
@@ -37,25 +37,12 @@ function Cards() {
           {property.title}
         </Box>
 
-        <Box>
-          {property.formattedPrice}
-          <Box as='span' color='gray.600' fontSize='sm'>
-            / month
-          </Box>
+        <Box mt='4'>
+          Current Capacity: {property.currentCapacity}
         </Box>
 
-        <Box display='flex' mt='2' alignItems='center'>
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < property.rating ? 'yellow.500' : 'gray.300'}
-              />
-            ))}
-          <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-            {property.reviewCount} reviews
-          </Box>
+        <Box>
+          Max Capacity: {property.maxCapacity}
         </Box>
       </Box>
     </Box>
