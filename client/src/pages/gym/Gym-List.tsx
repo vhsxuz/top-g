@@ -6,7 +6,7 @@ import Cards from '../../components/Cards';
 function GymList() {
   return (
     <Stack>
-      <Center>
+      <Center mt='16'>
         <Cards />
       </Center>
     </Stack>
