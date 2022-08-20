@@ -1,4 +1,4 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Stack } from '@chakra-ui/react';
+import { Center, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, Stack } from '@chakra-ui/react';
 import React, { useState } from 'react'
 
 function Login() {
@@ -11,7 +11,10 @@ function Login() {
   const isErrorPassword = password === ''
 
   return (
-    <Stack p='36'>
+    <Stack p='32'>
+      <Center>
+        <Heading pb='8'> Login </Heading>
+      </Center>
       <FormControl isInvalid={isErrorEmail} mb='8'>
         <FormLabel>Email</FormLabel>
         <Input

@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input, FormHelperText, FormErrorMessage, Stack } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, FormHelperText, FormErrorMessage, Stack, Heading, Center } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
 function Register() {
@@ -11,7 +11,10 @@ function Register() {
   const isErrorPassword = password === ''
 
   return (
-    <Stack p='36'>
+    <Stack p='32'>
+      <Center>
+        <Heading pb='8'> Register </Heading>
+      </Center>
       <FormControl isInvalid={isErrorEmail} mb='8'>
         <FormLabel>Email</FormLabel>
         <Input
