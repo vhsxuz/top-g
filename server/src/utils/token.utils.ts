@@ -22,6 +22,7 @@ export const generateToken = async (id: string, passwordHash: string) => {
 
   const token = sign(payload, secretKey, opt);
   return token;
+
 }
 
 export const validateToken = async (token: string): Promise<any> => {
@@ -33,4 +34,5 @@ export const validateToken = async (token: string): Promise<any> => {
 
   const decoded = verify(token, secretKey);
   return decoded;
+
 }
