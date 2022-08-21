@@ -1,28 +1,52 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
-import { Center, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import { Button, Center, Heading, Image, Stack, Text } from '@chakra-ui/react';
 
 function GymDetails() {
 
   const [gym, setGym] = useState<any>([]);
-  let token = document.cookie.slice(6);
-  const navigate = useNavigate()
+  let token = document.cookie.replace('%20', ' ').slice(6);
   const id = useParams()
 
   useEffect(() => {
-    getAllGym()
+    getGym()
   }, [])
 
-  const getAllGym = async () => {
-    console.log(id.id)
+  const getGym = async () => {
     await axios.get(`http://localhost:8000/api/v1/gym/${id.id}`, {
       headers: {
         Authorization: token,
       }
     }).then((response) => {
-      console.log(response.data.gymInfo)
       setGym(response.data.gymInfo)
+    })
+  }
+
+  const checkIn = async (e: any) => {
+    e.preventDefault();
+    await axios({
+      method: 'patch', //you can set what request you want to be
+      url: `http://localhost:8000/api/v1/gym/${id.id}`,
+      data: {
+        opt: 'checkIn',
+      },
+      headers: {
+        Authorization: token
+      }
+    })
+  }
+  const checkOut = async (e: any) => {
+    e.preventDefault();
+    await axios({
+      method: 'patch', //you can set what request you want to be
+      url: `http://localhost:8000/api/v1/gym/${id.id}`,
+      data: {
+        opt: 'checkOut',
+      },
+      headers: {
+        Authorization: token
+      }
     })
   }
 
@@ -38,18 +62,21 @@ function GymDetails() {
       </Center>
       <Center>
         <Text>
-          address: {gym.address}
+          {gym.address}
         </Text>
       </Center>
       <Center>
         <Text>
-          current capacity: {gym.currentCapacity}
+          capacity: {gym.currentCapacity} / {gym.maxCapacity}
         </Text>
       </Center>
       <Center>
-        <Text>
-          max capacity: {gym.maxCapacity}
-        </Text>
+        <Button colorScheme='whatsapp' onClick={checkIn}>
+          Check In
+        </Button>
+        <Button colorScheme='red' onClick={checkOut} ms='4'>
+          Check Out
+        </Button>
       </Center>
     </Stack>
   )
