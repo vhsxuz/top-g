@@ -43,7 +43,11 @@ export const getThread = async (req: Request, res: Response, next: NextFunction)
       id: threadId
     },
     include: {
-      comments: true,
+      comments: {
+        include: {
+          user: true
+        }
+      }
     }
   });
   return res.status(200).json({

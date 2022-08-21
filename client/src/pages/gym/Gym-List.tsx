@@ -31,7 +31,7 @@ function GymList() {
         !token ?
           <Stack>
             <Center mt="48">
-              <Heading> Error 500</Heading>
+              <Heading> Error 401</Heading>
             </Center>
             <Center>
               <Heading>Please Login First</Heading>
