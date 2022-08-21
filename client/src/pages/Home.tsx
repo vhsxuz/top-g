@@ -2,6 +2,7 @@ import { Button, Center, Heading, Text } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 function Home() {
+  // window.location.reload()
   return (
     <div>
       <Center>

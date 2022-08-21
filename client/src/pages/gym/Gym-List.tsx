@@ -6,13 +6,15 @@ import { Link } from 'react-router-dom';
 
 function GymList() {
   const [gyms, setGyms] = useState<any>([]);
-  let token = document.cookie.slice(6);
+  let token = document.cookie.replace('%20', ' ');
+  token = token.slice(6);
 
   useEffect(() => {
     getAllGym()
   }, [])
 
   const getAllGym = async () => {
+    console.log(token)
     await axios.get('http://localhost:8000/api/v1/gym', {
       headers: {
         Authorization: token,

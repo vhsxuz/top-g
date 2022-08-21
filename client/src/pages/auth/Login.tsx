@@ -2,6 +2,7 @@ import { Button, Center, FormControl, FormErrorMessage, FormHelperText, FormLabe
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 function Login() {
   const [username, setUsername] = useState('')
@@ -15,6 +16,9 @@ function Login() {
   const [loginStatus, setLoginStatus] = useState(false)
   const navigate = useNavigate()
 
+
+  const [cookies, setCookie] = useCookies(['token']);
+
   const login = async (e: any) => {
     e.preventDefault()
     await axios.post('http://localhost:8000/api/v1/auth/login', {
@@ -23,7 +27,8 @@ function Login() {
     }).then((response) => {
       setLoginStatus(true);
       const cookie = 'Bearer ' + response.data.token
-      document.cookie = `token=${cookie}`
+      setCookie('token', cookie, { path: '/' })
+      // document.cookie = `token=${cookie}`
       navigate("/");
     }).catch((error) => {
       console.log(error)

@@ -1,13 +1,14 @@
 import { Box, Flex, Heading, Spacer, ButtonGroup, Button } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
 
 function Navbar() {
   let token = document.cookie.slice(6);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   const logout = () => {
-    token = "";
-    document.cookie = "token="
+    removeCookie('token')
     console.log(token);
   }
 
@@ -19,7 +20,7 @@ function Navbar() {
       <Spacer />
       {
         token ?
-          <Link to='/'>
+          <Link to='/login'>
             <Button colorScheme='teal' size='sm' onClick={logout}>
               Logout
             </Button>
