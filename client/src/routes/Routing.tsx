@@ -6,6 +6,8 @@ import Register from '../pages/auth/Register';
 import ErrorPage from '../pages/Error-Page';
 import GymList from '../pages/gym/Gym-List';
 import GymDetails from '../pages/gym/Gym-details';
+import ThreadList from '../pages/forum/Thread-List';
+import ThreadDetail from '../pages/forum/Thread-detail';
 
 function Routing() {
   return (
@@ -15,6 +17,8 @@ function Routing() {
       <Route path='/register' element={<Register />} />
       <Route path='/gym-list' element={<GymList />} />
       <Route path='/gym-details/:id' element={<GymDetails />} />
+      <Route path='/thread-list' element={<ThreadList />} />
+      <Route path='/thread-details/:id' element={<ThreadDetail />} />
       <Route path='*' element={<ErrorPage />} />
     </Routes>
   )

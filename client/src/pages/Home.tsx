@@ -18,11 +18,16 @@ function Home() {
       <Center>
         <Link to='/gym-list'>
           <Button colorScheme='whatsapp' mt='4'>
-            Get List of Gym
+            Explore
+          </Button>
+        </Link>
+        <Link to='/thread-list'>
+          <Button colorScheme='linkedin' mt='4' ms='4'>
+            Checkout Our Threads
           </Button>
         </Link>
       </Center>
-    </div>
+    </div >
   )
 }
 
